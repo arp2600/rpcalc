@@ -1,6 +1,5 @@
 all: lex.yy.c
-	g++ -c interpreter.cpp
-	gcc parser.tab.c lex.yy.c rpcalc.c -o rpcalc
+	g++ parser.tab.c lex.yy.c rpcalc.c interpreter.cpp -o rpcalc
 
 parser.tab.c parser.tab.h: parser.y
 	bison -d parser.y
