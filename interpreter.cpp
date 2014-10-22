@@ -1,8 +1,11 @@
+extern "C" {
 #include "interpreter.h"
+#include "rpcalc.h"
+}
+
 #include <iostream>
 #include <list>
 #include <map>
-#include "rpcalc.h"
 #include <string>
 
 class ByteCode;
@@ -135,7 +138,7 @@ public:
 
 /*******************************     Public functions used by the parser ***********************************************************/
 // Handling operations
-void interpret_operation (char *op_name)
+extern "C" void interpret_operation (char *op_name)
 {
 	Operation *op = new Operation(op_name);
 	code.push_back(op);
@@ -145,7 +148,7 @@ void interpret_operation (char *op_name)
 }
 
 // Handling numbers
-void interpret_number (double number)
+extern "C" void interpret_number (double number)
 {
 	Number *num = new Number(number);
 	code.push_back(num);
@@ -155,14 +158,14 @@ void interpret_number (double number)
 }
 
 // Function definitios
-void interpret_func_definition (char *func_name)
+extern "C" void interpret_func_definition (char *func_name)
 {
 	FuncDefinition *def = new FuncDefinition(func_name);
 	def->Add();
 }
 
 // Function calls
-void interpret_func_call (char *func_name)
+extern "C" void interpret_func_call (char *func_name)
 {
 	FuncCall *call = new FuncCall(func_name);
 	code.push_back(call);
@@ -172,7 +175,7 @@ void interpret_func_call (char *func_name)
 }
 
 // Function end
-void interpret_end_of_func ()
+extern "C" void interpret_end_of_func ()
 {
 	EndOfFunction *eof = new EndOfFunction();
 	code.push_back(eof);

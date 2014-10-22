@@ -1,5 +1,7 @@
 all: lex.yy.c
-	g++ parser.tab.c lex.yy.c rpcalc.c interpreter.cpp -o rpcalc
+	gcc parser.tab.c lex.yy.c rpcalc.c -c
+	g++ *.o interpreter.cpp -o rpcalc # Linking must be performed with g++ as it apppears gcc can not link c++ code
+
 
 parser.tab.c parser.tab.h: parser.y
 	bison -d parser.y

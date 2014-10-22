@@ -9,6 +9,9 @@ extern int yyparse ();
 extern FILE *yyin;
 
 void yyerror(const char *s);
+
+int rpcalc_input (char *buffer, int *num_bytes_read, int max_bytes_to_read);
+
 %}
 
 %union {
@@ -53,7 +56,6 @@ statement:
 
 int main (int argc, char **argv)
 {
-	printf("> ");
 	yyparse();
 }
 

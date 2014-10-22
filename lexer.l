@@ -2,6 +2,11 @@
 %{
 #include "parser.tab.h"
 #define RETURN_OP { yylval.string = strdup(yytext); return OPERATION; }
+
+int get_input (char *buf, int max_size);
+
+#define YY_INPUT(buf,result,max_size) result = get_input(buf,max_size)
+
 %}
 
 %%
@@ -29,3 +34,9 @@ rnd|sqrt|dup|swap					RETURN_OP
  .									{ printf("Unrecognized token '%s'\n", yytext); }
 
 %%
+
+int get_input (char *buf, int max_size)
+{
+	int c = getchar();
+	return (c == EOF) ? YY_NULL : (buf[0] = c, 1);
+}
