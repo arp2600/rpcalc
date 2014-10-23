@@ -25,7 +25,7 @@ rnd|sqrt|dup|swap					RETURN_OP
 
 ":"									{ return ':'; }
 ";"									{ return ';'; }
-\n									{ return '\n'; }						
+\n									{ return '\n'; }
 
  /* Ignore whitespace */
 [ \t]								;
