@@ -13,6 +13,8 @@ void yyerror(const char *s);
 
 int rpcalc_input (char *buffer, int *num_bytes_read, int max_bytes_to_read);
 
+#define PRINTNL printf(":> ")
+
 %}
 
 %union {
@@ -37,8 +39,8 @@ segments:
 		;
 
 segment:
-	   manipulations '\n' { rpPrint(); }
-	   | definition '\n'
+	   manipulations '\n' { rpPrint(); PRINTNL; }
+	   | definition '\n' { PRINTNL; }
 	   ;
 
 definition:
@@ -65,7 +67,7 @@ declaration:
 		OPERATION { interpret_operation($1, 0); }
 		| NUMBER { interpret_number($1, 0); }
 		| IDENTIFIER { interpret_func_call($1, 0); }
-		| '\n'
+		| '\n' { PRINTNL; }
 		;
 
 %%
@@ -73,8 +75,10 @@ declaration:
 int main (int argc, char **argv)
 {
 	init_input_handler();
+	PRINTNL;
 	yyparse();
 	end_input_handler();
+	printf("\n");
 }
 
 void yyerror (const char *s)

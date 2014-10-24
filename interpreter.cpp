@@ -69,7 +69,7 @@ public:
 		else if (_op_name.compare("catch") == 0)
 			rpCatch();
 		else
-			std::cout << "Operation '" << _op_name << "' is undefined\n";
+			std::cout << "Operation '" << _op_name << "' is undefined\n\r";
 	
 		return 0;
 	}
@@ -118,7 +118,7 @@ public:
 	{
 		FunctionDict::iterator it = function_map.find(_name);
 		if (it == function_map.end())
-			std::cout << "Function '" << _name << "' has not been defined yet!\n";
+			std::cout << "Function '" << _name << "' has not been defined yet!\n\r";
 		else
 		{
 			(*(it->second))->Perform();
