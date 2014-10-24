@@ -15,7 +15,6 @@ typedef std::map<std::string, CodeList::iterator> FunctionDict;
 
 CodeList code;
 FunctionDict function_map;
-int defining = 0;
 
 class ByteCode
 {
@@ -65,6 +64,10 @@ public:
 			rpDup();
 		else if (_op_name.compare("swap") == 0)
 			rpSwap();
+		else if (_op_name.compare("drop") == 0)
+			rpDrop();
+		else if (_op_name.compare("catch") == 0)
+			rpCatch();
 		else
 			std::cout << "Operation '" << _op_name << "' is undefined\n";
 	
@@ -103,7 +106,6 @@ public:
 	{
 		code.push_back(this); // Push definition to the code list
 		function_map[_name] = --code.end(); // Add the function into the function map
-		defining++; // Trigger the state as defining
 	}
 };
 
@@ -138,22 +140,22 @@ public:
 
 /*******************************     Public functions used by the parser ***********************************************************/
 // Handling operations
-extern "C" void interpret_operation (char *op_name)
+extern "C" void interpret_operation (char *op_name, int perform)
 {
 	Operation *op = new Operation(op_name);
 	code.push_back(op);
 
-	if (defining == 0)
+	if (perform)
 		op->Perform();
 }
 
 // Handling numbers
-extern "C" void interpret_number (double number)
+extern "C" void interpret_number (double number, int perform)
 {
 	Number *num = new Number(number);
 	code.push_back(num);
 
-	if (defining == 0)
+	if (perform)
 		num->Perform();
 }
 
@@ -165,12 +167,12 @@ extern "C" void interpret_func_definition (char *func_name)
 }
 
 // Function calls
-extern "C" void interpret_func_call (char *func_name)
+extern "C" void interpret_func_call (char *func_name, int perform)
 {
 	FuncCall *call = new FuncCall(func_name);
 	code.push_back(call);
 
-	if (defining == 0)
+	if (perform)
 		call->Perform();
 }
 
@@ -179,8 +181,6 @@ extern "C" void interpret_end_of_func ()
 {
 	EndOfFunction *eof = new EndOfFunction();
 	code.push_back(eof);
-	if (defining > 0)
-		defining--;
 
 	eof->Perform();
 }

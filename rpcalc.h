@@ -22,4 +22,7 @@ void rpDump ();
 void rpSwap ();
 void rpDup ();
 
+void rpDrop();
+void rpCatch();
+
 #endif

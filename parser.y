@@ -36,40 +36,35 @@ segments:
 		;
 
 segment:
-	   manipulations
-	   | definition
+	   manipulations '\n' { rpPrint(); }
+	   | definition '\n'
 	   ;
 
 definition:
-		':' IDENTIFIER declarations ';' { printf("End of definition %s\n", $2); }
+		':' IDENTIFIER { interpret_func_definition($2); } declarations ';' { interpret_end_of_func(); }
 		;
 
 declarations:
 		declarations declaration
-		| declarations declaration '\n'
-		| declaration '\n'
 		| declaration
-		| '\n'
 		;
 
 manipulations:
 		manipulations manipulation
-		| manipulations manipulation '\n' { printf("Result from a series of manipulations\n"); }
-		| manipulation '\n' { printf("Result from a single manipulation\n"); }
 		| manipulation
-		| '\n' { printf("Blank line\n"); }
 		;
 
 manipulation:
-		OPERATION 
-		| NUMBER 
-		| IDENTIFIER 
+		OPERATION { interpret_operation($1, 1); }
+		| NUMBER { interpret_number($1, 1); }
+		| IDENTIFIER { interpret_func_call($1, 1); }
 		;
 
 declaration:
-		OPERATION 
-		| NUMBER 
-		| IDENTIFIER 
+		OPERATION { interpret_operation($1, 0); }
+		| NUMBER { interpret_number($1, 0); }
+		| IDENTIFIER { interpret_func_call($1, 0); }
+		| '\n'
 		;
 
 %%

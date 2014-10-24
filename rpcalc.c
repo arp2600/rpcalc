@@ -5,13 +5,13 @@
 
 // Reverse polish notation calculator programmed in C
 double stack[1024];
-double *head = stack-1;
+double *head = stack;
 
 // push a number onto the stack
 void rpPush (double num)
 {
 	head++;
-	*head = num;
+	head[0] = num;
 }
 
 // add the top two numbers on the stack
@@ -139,4 +139,14 @@ void rpDup ()
 {
 	head++;
 	head[0] = head[-1];
+}
+
+void rpDrop()
+{
+	head--;
+}
+
+void rpCatch()
+{
+	head++;
 }

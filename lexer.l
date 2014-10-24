@@ -17,6 +17,7 @@ int get_input (char *buf, int max_size);
 rnd|sqrt|dup|swap					RETURN_OP
 "dump"|"exit" 						RETURN_OP
 "."									RETURN_OP
+drop|catch							RETURN_OP
 
  /* Identifiers */
 [a-zA-Z_][a-zA-Z0-9_]*				{ yylval.string = strdup(yytext); return IDENTIFIER; }

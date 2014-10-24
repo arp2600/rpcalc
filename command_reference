@@ -1,0 +1,24 @@
+Binary Operators: drops the stack size by one
+	+
+	-
+	*
+	/
+	%
+	^
+
+Unary Operators: changes the element on top of the stack
+	sin
+	cos
+	tan
+	sinh
+	cosh
+	tanh
+	rnd
+	sqrt
+
+dup 		-		duplicate the top element
+swp			-		swap the top two elements
+dump		-		print out the stack
+drop		-		decrements the head, dropping the top value in the stack (leaves the value in place)
+catch		-		increment the head, catching a value previously dropped
+
