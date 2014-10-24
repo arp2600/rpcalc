@@ -3,6 +3,7 @@
 #include "rpcalc.h"
 #include "stdio.h"
 #include "stdlib.h"
+#include "input_handler.h"
 
 extern int yylex ();
 extern int yyparse ();
@@ -71,11 +72,13 @@ declaration:
 
 int main (int argc, char **argv)
 {
+	init_input_handler();
 	yyparse();
+	end_input_handler();
 }
 
 void yyerror (const char *s)
 {
-	printf("Parse error:\n\t%s\n", s);
+	printf("Parse error:\n\r\t%s\n\r", s);
 	exit(-1);
 }

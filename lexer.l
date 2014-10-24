@@ -1,6 +1,7 @@
 %option noyywrap
 %{
 #include "parser.tab.h"
+#include "input_handler.h"
 #define RETURN_OP { yylval.string = strdup(yytext); return OPERATION; }
 
 int get_input (char *buf, int max_size);
@@ -32,12 +33,13 @@ drop|catch							RETURN_OP
 [ \t]								;
 
  /* Ignore unknown characters */
- .									{ printf("Unrecognized token '%s'\n", yytext); }
+ .									{ printf("Unrecognized token '%s'\n\r", yytext); }
 
 %%
 
 int get_input (char *buf, int max_size)
 {
-	int c = getchar();
+	//int c = getchar();
+	int c = getch();
 	return (c == EOF) ? YY_NULL : (buf[0] = c, 1);
 }

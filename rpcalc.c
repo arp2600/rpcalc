@@ -109,7 +109,7 @@ void print_float (double value)
 void rpPrint ()
 {
 	print_float(*head);
-	printf("\n");
+	printf("\n\r");
 }
 
 void rpDump ()
@@ -125,7 +125,7 @@ void rpDump ()
 		ptr++;
 	}
 	print_float(*ptr);
-	printf("\n");
+	printf("\n\r");
 }
 
 void rpSwap ()
