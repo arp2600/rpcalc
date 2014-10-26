@@ -22,3 +22,7 @@ dump		-		print out the stack
 drop		-		decrements the head, dropping the top value in the stack (leaves the value in place)
 catch		-		increment the head, catching a value previously dropped
 
+To do:
+	Revise the whole thing to work with an ncurses interface
+		The state of the stack could be shown in a bar at the bottom, and the command history could scroll down the page
+		Using ncurses would make it all more portable as well

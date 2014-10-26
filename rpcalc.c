@@ -5,7 +5,7 @@
 
 // Reverse polish notation calculator programmed in C
 double stack[1024];
-double *head = stack;
+double *head = stack-1;
 
 // push a number onto the stack
 void rpPush (double num)
@@ -96,7 +96,8 @@ void print_float (double value)
 		{
 			if (string[i] != '0')
 			{
-				string[i] = '\0';
+				if (string[i] == '.')
+					string[i] = '\0';
 				break;
 			}
 			else

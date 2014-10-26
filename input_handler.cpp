@@ -84,20 +84,15 @@ int read_input ()
 						i = use_history(--history_index);
 					history_index = i;
 				}
-
-				/*
-				// Delete the current line
-				for (int i=0; i<_line_buffer.length(); i++)
-					printf("\b \b");
-				_line_buffer.clear();
-				// And replace it with history
-				*/
 			}
 		}
 		else if (c == 127) // backspace
 		{
-			printf("\b \b");
-			_line_buffer.pop_back();
+			if (_line_buffer.size() > 0)
+			{
+				printf("\b \b");
+				_line_buffer.pop_back();
+			}
 		}
 		else if (c > 31) // Printable character
 		{

@@ -24,6 +24,7 @@ drop|catch							RETURN_OP
 [a-zA-Z_][a-zA-Z0-9_]*				{ yylval.string = strdup(yytext); return IDENTIFIER; }
  /* Numbers */
 [0-9]+("."[0-9]*)?					{ yylval.number = atof(yytext); return NUMBER; }
+[0-9]*"."[0-9]+						{ yylval.number = atof(yytext); return NUMBER; }
 
 ":"									{ return ':'; }
 ";"									{ return ';'; }
