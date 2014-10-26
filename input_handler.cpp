@@ -2,6 +2,7 @@
 extern "C"
 {
 #include "input_handler.h"
+#include "output.h"
 }
 #include "stdlib.h"
 #include <string>
@@ -20,7 +21,6 @@ int purge_buffer ()
 {
 	if (_line_buffer.length() == 0)
 		return -1;
-	
 	// Read the buffer back character by character
 	static int index = 0;
 	if (index < _line_buffer.length())
@@ -39,7 +39,7 @@ int use_history (int index)
 
 	// Delete the characters in the terminal and the line buffer
 	for (int i=0; i<_line_buffer.size(); i++)
-		printf("\b \b");
+		print_delete();
 	_line_buffer.clear();
 
 	// Bounds check the index
@@ -65,7 +65,9 @@ int read_input ()
 			return 3;
 		else if (c == 13) // New line
 		{
-			printf("\n\r");
+			print_newline();
+			if (_line_buffer.length() == 0)
+				_line_buffer.push_back(' ');
 			history_index = 0;
 			break;
 		}
@@ -91,7 +93,7 @@ int read_input ()
 		{
 			if (_line_buffer.size() > 0)
 			{
-				printf("\b \b");
+				print_delete();
 				_line_buffer.pop_back();
 			}
 		}
@@ -125,7 +127,9 @@ int getch ()
 				break;
 		}
 
-		_line_history.push_back(_line_buffer);
+		// Buffer lines, but not blank lines
+		if (_line_buffer.length() > 1)
+			_line_history.push_back(_line_buffer);
 	}
 }
 

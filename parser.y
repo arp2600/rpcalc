@@ -4,6 +4,7 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "input_handler.h"
+#include "output.h"
 
 extern int yylex ();
 extern int yyparse ();
@@ -12,8 +13,6 @@ extern FILE *yyin;
 void yyerror(const char *s);
 
 int rpcalc_input (char *buffer, int *num_bytes_read, int max_bytes_to_read);
-
-#define PRINTNL printf(":> ")
 
 %}
 
@@ -39,8 +38,9 @@ segments:
 		;
 
 segment:
-	   manipulations '\n' { rpPrint(); PRINTNL; }
-	   | definition '\n' { PRINTNL; }
+	   manipulations '\n' { rpPrint(); print_line_start(); }
+	   | definition '\n' { print_line_start(); }
+	   | '\n' { print_line_start(); }
 	   ;
 
 definition:
@@ -67,7 +67,7 @@ declaration:
 		OPERATION { interpret_operation($1, 0); }
 		| NUMBER { interpret_number($1, 0); }
 		| IDENTIFIER { interpret_func_call($1, 0); }
-		| '\n' { PRINTNL; }
+		| '\n' { print_line_start(); }
 		;
 
 %%
@@ -75,10 +75,11 @@ declaration:
 int main (int argc, char **argv)
 {
 	init_input_handler();
-	PRINTNL;
+	//PRINTNL;
+	print_line_start();
 	yyparse();
 	end_input_handler();
-	printf("\n");
+	print_newline();
 }
 
 void yyerror (const char *s)

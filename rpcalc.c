@@ -1,5 +1,6 @@
 #include "rpcalc.h"
 #include "math.h"
+#include "output.h"
 #include "stdio.h"
 #include "string.h"
 
@@ -85,32 +86,10 @@ void rpTanh ()
 	head[0] = tanh(head[0]);
 }
 
-void print_float (double value)
-{
-	char string[64];
-	snprintf(string, 64, "%f", value);
-	char *dot = strchr(string, '.');
-	if (dot != 0)
-	{
-		for (int i=strlen(string)-1; i > 0; i--)
-		{
-			if (string[i] != '0')
-			{
-				if (string[i] == '.')
-					string[i] = '\0';
-				break;
-			}
-			else
-				string[i] = '\0';
-		}
-	}
-	printf("%s", string);
-}
-
 void rpPrint ()
 {
-	print_float(*head);
-	printf("\n\r");
+	print_double(*head, COLOR_GREEN);
+	print_newline();
 }
 
 void rpDump ()
@@ -121,12 +100,14 @@ void rpDump ()
 	double *ptr = stack;
 	while (ptr != head)
 	{
-		print_float(*ptr);
+		//print_float(*ptr);
+		print_double(*ptr, COLOR_RED);
 		printf(", ");
 		ptr++;
 	}
-	print_float(*ptr);
-	printf("\n\r");
+	//print_float(*ptr);
+	print_double(*ptr, COLOR_RED);
+	print_newline();
 }
 
 void rpSwap ()
