@@ -1,3 +1,4 @@
+#include <cstdio>
 extern "C"
 {
 #include "input_handler.h"

@@ -1,5 +1,5 @@
 all: lex.yy.c
-	gcc parser.tab.c lex.yy.c rpcalc.c -c
+	gcc -std=c99 parser.tab.c lex.yy.c rpcalc.c -c
 	g++ *.o input_handler.cpp interpreter.cpp -o rpcalc # Linking must be performed with g++ as it apppears gcc can not link c++ code
 
 
