@@ -17,14 +17,15 @@ int get_input (char *buf, int max_size);
 (sin|cos|tan)(h)?					RETURN_OP
 rnd|sqrt|dup|swap					RETURN_OP
 "dump"|"exit" 						RETURN_OP
-"."									RETURN_OP
 drop|catch							RETURN_OP
 
  /* Identifiers */
 [a-zA-Z_][a-zA-Z0-9_]*				{ yylval.string = strdup(yytext); return IDENTIFIER; }
  /* Numbers */
-[0-9]+("."[0-9]*)?					{ yylval.number = atof(yytext); return NUMBER; }
-[0-9]*"."[0-9]+						{ yylval.number = atof(yytext); return NUMBER; }
+"-"?[0-9]+"."?						{ yylval.number = atof(yytext); return NUMBER; } /* Integers with an optional dot on the end */
+"-"?[0-9]*"."[0-9]+					{ yylval.number = atof(yytext); return NUMBER; } /* Floats */
+"-"?[0-9]e"-"?[0-9]+				{ yylval.number = atof(yytext); return NUMBER; } /* Integers with exponent */
+"-"?[0-9]*"."[0-9]+e"-"?[0-9]+		{ yylval.number = atof(yytext); return NUMBER; } /* Floats with exponent */
 
 ":"									{ return ':'; }
 ";"									{ return ';'; }
