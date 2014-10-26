@@ -1,2 +1,1 @@
 :v3mag 2 ^ swap 2 ^ + swap 2 ^ + sqrt;
-:drop 0 * 1 + *;
