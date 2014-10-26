@@ -2,9 +2,10 @@
 %{
 #include "parser.tab.h"
 #include "input_handler.h"
-#define RETURN_OP { yylval.string = strdup(yytext); return OPERATION; }
+#define RETURN_OP { yylval.string = str_duplicate(yytext); return OPERATION; }
 
 int get_input (char *buf, int max_size);
+char *str_duplicate(char *string);
 
 #define YY_INPUT(buf,result,max_size) result = get_input(buf,max_size)
 
@@ -20,7 +21,7 @@ rnd|sqrt|dup|swap					RETURN_OP
 drop|catch							RETURN_OP
 
  /* Identifiers */
-[a-zA-Z_][a-zA-Z0-9_]*				{ yylval.string = strdup(yytext); return IDENTIFIER; }
+[a-zA-Z_][a-zA-Z0-9_]*				{ yylval.string = str_duplicate(yytext); return IDENTIFIER; }
  /* Numbers */
 "-"?[0-9]+"."?						{ yylval.number = atof(yytext); return NUMBER; } /* Integers with an optional dot on the end */
 "-"?[0-9]*"."[0-9]+					{ yylval.number = atof(yytext); return NUMBER; } /* Floats */
@@ -44,4 +45,12 @@ int get_input (char *buf, int max_size)
 	//int c = getchar();
 	int c = getch();
 	return (c == EOF) ? YY_NULL : (buf[0] = c, 1);
+}
+
+char *str_duplicate(char *string)
+{
+	int length = strlen(string);
+	char *out = (char*)malloc(length+1);
+	strcpy(out, string);
+	return out;
 }
