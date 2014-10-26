@@ -12,7 +12,7 @@ std::string _line_buffer;
 
 void init_input_handler ()
 {
-	system("/bin/stty raw");
+	system("/bin/stty raw -echo");
 }
 
 // returns -1 once _line_buffer has been read
