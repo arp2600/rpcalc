@@ -2,8 +2,13 @@
 #include "stdio.h"
 #include "string.h"
 
+int _volume = 1; // 1 prints, 0 doesn't
+
 void print_line_start ()
 {
+	if (!_volume)
+		return;
+
 	char *line_start = ":> ";
 	printf("%s", COLOR_BLUE); 
 	printf("%s", line_start);
@@ -12,6 +17,9 @@ void print_line_start ()
 
 void print_double(double value, const char* color)
 {
+	if (!_volume)
+		return;
+
 	char string[64];
 	snprintf(string, 64, "%f", value);
 	char *dot = strchr(string, '.');
@@ -36,10 +44,22 @@ void print_double(double value, const char* color)
 
 void print_newline ()
 {
+	if (!_volume)
+		return;
+
 	printf("\n\r");
 }
 
 void print_delete ()
 {
+	if (!_volume)
+		return;
+
 	printf("\b \b");
 }
+
+void suppress_output (int volume)
+{
+	_volume = volume;
+}
+

@@ -77,6 +77,7 @@ int main (int argc, char **argv)
 	init_input_handler();
 	//PRINTNL;
 	print_line_start();
+	read_file("rpcalc_functions");
 	yyparse();
 	end_input_handler();
 	print_newline();

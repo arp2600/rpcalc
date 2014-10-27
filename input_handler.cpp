@@ -5,11 +5,14 @@ extern "C"
 #include "output.h"
 }
 #include "stdlib.h"
+#include <fstream>
 #include <string>
+#include <stack>
 #include <vector>
 
 std::vector<std::string> _line_history;
 std::string _line_buffer;
+std::stack<std::fstream> _file_stack; // The files being read in. When a file issues a command to read a file, the new file is placed on top of the stack
 
 void init_input_handler ()
 {
@@ -61,6 +64,7 @@ int read_input ()
 	while (true)
 	{
 		int c = getchar();
+
 		if (c == 3) // Terminate program ctrl-C
 			return 3;
 		else if (c == 13) // New line
@@ -110,6 +114,22 @@ int read_input ()
 // Return the next character from the user
 int getch ()
 {
+	suppress_output(0);
+	// Return the characters from any files being read
+	while (_file_stack.size() > 0)
+	{
+		int c = _file_stack.top().get();
+		if (_file_stack.top().eof())
+		{
+			_file_stack.pop();
+			continue;
+		}
+
+		return c;
+	}
+
+	suppress_output(1);
+	// Read from stdin
 	while (true)
 	{
 		// Purge any characters remaining in the buffer from the previous line
@@ -137,3 +157,13 @@ void end_input_handler ()
 {
 	system("/bin/stty sane");
 }
+
+// Stop reading stdin and read file at path
+void read_file (const char *path)
+{
+	// Add the new file to the top of the file stack
+	_file_stack.emplace(path, std::fstream::in);
+	if (!_file_stack.top().is_open())
+		_file_stack.pop();
+}
+

@@ -13,5 +13,6 @@ void print_line_start ();
 void print_double(double number, const char* color);
 void print_newline ();
 void print_delete ();
+void suppress_output (int volume);
 
 #endif
