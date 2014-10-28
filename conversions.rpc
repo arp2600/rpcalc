@@ -1,0 +1,24 @@
+// Lengths ************************************************************************************************************
+
+:miles2meters 1609.344 * ;
+:miles2km miles2meters 1000 / ;
+:meters2miles 1 miles2meters / ;
+:km2miles 1000 * meters2miles ;
+
+
+// Weights ************************************************************************************************************
+
+:stone2kg 6.35029 * ;
+:kg2stone 1 stone2kg / ;
+:stone2lbs 14 * ;
+:lbs2stone 14 / ;
+:kg2lbs kg2stone stone2lbs ;
+:lbs2kg lbs2stone stone2kg ;
+:grams2lbs 1000 / kg2lbs ;
+:lbs2grams 1 grams2lbs / ;
+
+
+// Misc ***************************************************************************************************************
+
+:gs2cce 20 / ; 		// Grams of sugar to cadburys cream eggs
+:gs2tes 4 / ;		// Grams of sugar to teaspoons of sugar
