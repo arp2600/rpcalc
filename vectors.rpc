@@ -1,0 +1,14 @@
+:v3dup 
+dup dup dup drop drop drop 					// duplicate the top three times to copy the z coordinate
+swap dup dup drop drop drop 				// swap y and z and duplicate to copy the y coordinate
+swap catch swap	dup drop					// Move the x to z and copy once
+drop swap catch swap drop swap catch 		// swap the x y z back to the correct arrangment
+catch catch catch							// move head to the end of the new vector
+;
+
+:v3mag
+2 ^ 		// z squared
+swap 2 ^ + 	// plus y squared
+swap 2 ^ +	// plus z squared
+sqrt
+;

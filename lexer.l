@@ -1,5 +1,6 @@
 %option noyywrap
 %{
+
 #include "parser.tab.h"
 #include "input_handler.h"
 #define RETURN_OP { yylval.string = str_duplicate(yytext); return OPERATION; }
@@ -29,6 +30,8 @@ drop|catch							RETURN_OP
 "-"?[0-9]*"."[0-9]+					{ yylval.number = atof(yytext); return NUMBER; } /* Floats */
 "-"?[0-9]e"-"?[0-9]+				{ yylval.number = atof(yytext); return NUMBER; } /* Integers with exponent */
 "-"?[0-9]*"."[0-9]+e"-"?[0-9]+		{ yylval.number = atof(yytext); return NUMBER; } /* Floats with exponent */
+
+"//".*$								; /* Single line comments */
 
 ":"									{ return ':'; }
 ";"									{ return ';'; }

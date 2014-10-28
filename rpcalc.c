@@ -6,40 +6,53 @@
 
 // Reverse polish notation calculator programmed in C
 double stack[1024];
-double *head = stack-1;
+double *head = stack-1; // The head of the stack
+double *top = 0; // The largest value the stack has ever reached
+
+void stack_push()
+{
+	head++;
+	if (head > top)
+		top = head;
+}
+
+void stack_pop()
+{
+	head--;
+}
 
 // push a number onto the stack
 void rpPush (double num)
 {
-	head++;
+	stack_push();
 	head[0] = num;
 }
 
 // add the top two numbers on the stack
 void rpAdd ()
 {
-	head--;
+	stack_pop();
 	head[0] = head[0] + head[1];
 }
 
 // subtract the top two numbers from the stack
 void rpSub ()
 {
-	head--;
+	stack_pop();
 	head[0] = head[0] - head[1];
 }
 
 // multiply the top two numbers on the stack
 void rpMul ()
 {
-	head--;
+	stack_pop();
 	head[0] = head[0] * head[1];
 }
 
 // divide the top two numbers on the stack
 void rpDiv ()
 {
-	head--;
+	stack_pop();
 	head[0] = head[0] / head[1];
 }
 
@@ -56,7 +69,7 @@ void rpSqrt ()
 
 void rpPow ()
 {
-	head--;
+	stack_pop();
 	head[0] = pow(head[0], head[1]);
 }
 
@@ -98,15 +111,25 @@ void rpDump ()
 		return;
 
 	double *ptr = stack;
-	while (ptr != head)
+	while (ptr < head)
 	{
 		//print_float(*ptr);
-		print_double(*ptr, COLOR_RED);
+		print_double(*ptr, COLOR_BLUE);
 		printf(", ");
 		ptr++;
 	}
+
 	//print_float(*ptr);
-	print_double(*ptr, COLOR_RED);
+	print_double(*ptr, COLOR_GREEN);
+	ptr++;
+
+	while (ptr <= top)
+	{
+		printf(", ");
+		print_double(*ptr, COLOR_YELLOW);
+		ptr++;
+	}
+
 	print_newline();
 }
 
@@ -119,16 +142,16 @@ void rpSwap ()
 
 void rpDup ()
 {
-	head++;
+	stack_push();
 	head[0] = head[-1];
 }
 
 void rpDrop()
 {
-	head--;
+	stack_pop();
 }
 
 void rpCatch()
 {
-	head++;
+	stack_push();
 }
