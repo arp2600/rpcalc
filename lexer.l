@@ -21,7 +21,9 @@ rnd|sqrt|dup|swap					RETURN_OP
 drop|catch							RETURN_OP
 
  /* Identifiers */
+[a-zA-Z0-9_]+"."rpc					{ yylval.string = str_duplicate(yytext); return FILENAME; }
 [a-zA-Z_][a-zA-Z0-9_]*				{ yylval.string = str_duplicate(yytext); return IDENTIFIER; }
+
  /* Numbers */
 "-"?[0-9]+"."?						{ yylval.number = atof(yytext); return NUMBER; } /* Integers with an optional dot on the end */
 "-"?[0-9]*"."[0-9]+					{ yylval.number = atof(yytext); return NUMBER; } /* Floats */

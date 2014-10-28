@@ -21,7 +21,7 @@ int rpcalc_input (char *buffer, int *num_bytes_read, int max_bytes_to_read);
 	double number;
 }
 
-%token <string> OPERATION IDENTIFIER
+%token <string> OPERATION IDENTIFIER FILENAME
 %token <number> NUMBER
 
 %start rpcalc
@@ -40,6 +40,7 @@ segments:
 segment:
 	   manipulations '\n' { rpPrint(); print_line_start(); }
 	   | definition '\n' { print_line_start(); }
+	   | FILENAME { read_file($1); }
 	   | '\n' { print_line_start(); }
 	   ;
 
@@ -75,9 +76,8 @@ declaration:
 int main (int argc, char **argv)
 {
 	init_input_handler();
-	//PRINTNL;
 	print_line_start();
-	read_file("rpcalc_functions");
+	read_file("config.rpc");
 	yyparse();
 	end_input_handler();
 	print_newline();
