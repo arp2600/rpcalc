@@ -1,0 +1,51 @@
+// Move a number down the stack by n places
+:mvdown swap drop ;
+:mvdown2 mvdown mvdown ;
+:mvdown3 mvdown2 mvdown ;
+:mvdown4 mvdown3 mvdown ;
+:mvdown5 mvdown4 mvdown ;
+:mvdown6 mvdown5 mvdown ;
+:mvdown7 mvdown6 mvdown ;
+:mvdown8 mvdown7 mvdown ;
+:mvdown9 mvdown8 mvdown ;
+:mvdown10 mvdown9 mvdown ;
+
+// Move a number up the stack by n places
+:mvup catch swap ;
+:mvup2 mvup mvup ;
+:mvup3 mvup2 mvup ;
+:mvup4 mvup3 mvup ;
+:mvup5 mvup4 mvup ;
+:mvup6 mvup5 mvup ;
+:mvup7 mvup6 mvup ;
+:mvup8 mvup7 mvup ;
+
+// Catch n places
+:catch2 catch catch ;
+:catch3 catch2 catch ;
+:catch4 catch3 catch ;
+:catch5 catch4 catch ;
+:catch6 catch5 catch ;
+:catch7 catch6 catch ;
+
+// Drop n places
+:drop2 drop drop ;
+:drop3 drop2 drop ;
+:drop4 drop3 drop ;
+:drop5 drop4 drop ;
+:drop6 drop5 drop ;
+:drop7 drop6 drop ;
+:drop8 drop7 drop ;
+:drop9 drop8 drop ;
+
+// Duplicate n times
+:dup2 dup dup ;
+:dup3 dup2 dup ;
+:dup4 dup3 dup ;
+:dup5 dup4 dup ;
+
+// This language really needs loops
+// Or maybe a way of repeating commands a certain number of times
+// dup *6 where *6 stands for repeat the previous command 6 times
+// could be extended to dup * 2*3   -  repeat the last two commands another 3 times
+// the command then becomes, dup * dup * dup * dup *

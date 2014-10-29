@@ -4,6 +4,8 @@
 :billion 1000000000 *;
 :milli 1000 /;
 
+utils.rpc // Important language utilities
+
 constants.rpc
 conversions.rpc
 vectors.rpc

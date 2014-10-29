@@ -1,9 +1,17 @@
-:v3dup 
+:v3dup
 dup dup dup drop drop drop 					// duplicate the top three times to copy the z coordinate
 swap dup dup drop drop drop 				// swap y and z and duplicate to copy the y coordinate
 swap catch swap	dup drop					// Move the x to z and copy once
 drop swap catch swap drop swap catch 		// swap the x y z back to the correct arrangment
 catch catch catch							// move head to the end of the new vector
+;
+
+:v3drop
+drop drop drop
+;
+
+:v3catch
+catch catch catch
 ;
 
 :v3mag
@@ -12,3 +20,37 @@ swap 2 ^ + 	// plus y squared
 swap 2 ^ +	// plus z squared
 sqrt
 ;
+
+:v3dot
+drop drop swap catch swap drop drop swap	// Rearrange the stack so that the x y and z components of the two vectors are next to each other
+catch catch catch							// Move head back to the top of the two vectors
+* drop * drop *								// Multiply all the components
+0 catch 0 catch ++++						// Zero out the middle pieces and add the components
+;
+
+:v3cross
+v3dup v3dup drop9 v3dup
+drop4
+swap
+catch7
+mvdown7
+catch2 mvdown
+catch6 mvdown5
+catch4 mvdown3
+catch4 mvdown3
+catch6 mvdown4
+catch4 mvdown2
+drop6
+* drop *
+0 catch + -
+0 dup2
+catch4
+* drop *
+0 catch + -
+mvdown3
+0 dup5 catch4
+* drop *
+0 catch + -
+mvdown6
+;
+
