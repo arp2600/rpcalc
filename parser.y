@@ -19,10 +19,12 @@ int rpcalc_input (char *buffer, int *num_bytes_read, int max_bytes_to_read);
 %union {
     char *string;
 	double number;
+	int integer;
 }
 
 %token <string> OPERATION IDENTIFIER FILENAME
 %token <number> NUMBER
+%token <integer> LOOP
 
 %start rpcalc
 
@@ -62,6 +64,7 @@ manipulation:
 		OPERATION { interpret_operation($1, 1); }
 		| NUMBER { interpret_number($1, 1); }
 		| IDENTIFIER { interpret_func_call($1, 1); }
+		| LOOP { interpret_loop($1, 1); }
 		;
 
 declaration:
@@ -69,6 +72,7 @@ declaration:
 		| NUMBER { interpret_number($1, 0); }
 		| IDENTIFIER { interpret_func_call($1, 0); }
 		| '\n' { print_line_start(); }
+		| LOOP { interpret_loop($1, 0); }
 		;
 
 %%

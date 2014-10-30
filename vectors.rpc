@@ -1,18 +1,15 @@
+:v3mag 2 ^ swap 2 ^ + swap 2 ^ + sqrt;
+
 :v3dup
-dup dup dup drop drop drop 					// duplicate the top three times to copy the z coordinate
-swap dup dup drop drop drop 				// swap y and z and duplicate to copy the y coordinate
+dup`3 drop`3  								// duplicate the top three times to copy the z coordinate
+swap dup`2  drop`3 			 				// swap y and z and duplicate to copy the y coordinate
 swap catch swap	dup drop					// Move the x to z and copy once
 drop swap catch swap drop swap catch 		// swap the x y z back to the correct arrangment
-catch catch catch							// move head to the end of the new vector
+catch`3 									// move head to the end of the new vector
 ;
 
-:v3drop
-drop drop drop
-;
-
-:v3catch
-catch catch catch
-;
+:v3drop drop`3 ;	// These functions will be removed soon. Do not use. Instead use drop`3 and catch`3
+:v3catch catch`3 ;
 
 :v3mag
 2 ^ 		// z squared
@@ -22,35 +19,18 @@ sqrt
 ;
 
 :v3dot
-drop drop swap catch swap drop drop swap	// Rearrange the stack so that the x y and z components of the two vectors are next to each other
-catch catch catch							// Move head back to the top of the two vectors
+drop`2 swap catch swap drop`2 swap			// Rearrange the stack so that the x y and z components of the two vectors are next to each other
+catch`3 									// Move head back to the top of the two vectors
 * drop * drop *								// Multiply all the components
-0 catch 0 catch ++++						// Zero out the middle pieces and add the components
+0 catch 0 catch +`4							// Zero out the middle pieces and add the components
 ;
 
 :v3cross
-v3dup v3dup drop9 v3dup
-drop4
-swap
-catch7
-mvdown7
-catch2 mvdown
-catch6 mvdown5
-catch4 mvdown3
-catch4 mvdown3
-catch6 mvdown4
-catch4 mvdown2
-drop6
-* drop *
-0 catch + -
-0 dup2
-catch4
-* drop *
-0 catch + -
-mvdown3
-0 dup5 catch4
-* drop *
-0 catch + -
-mvdown6
+v3dup`2 drop`9 v3dup drop`4								// Copy the two vectors so the stack has [v1, v1, v2, v2] and move the head down the start of the vectors
+// Rearrange the vector components and move head to the start of the vectors
+swap catch`7 mvdown`7 catch`2 mvdown catch`6 mvdown`5 catch`4 mvdown`3 catch`4 mvdown`3 catch`6 mvdown`4 catch`4 mvdown`2 drop`6
+* drop * 0 catch + - 									// Calculate the x component
+0 dup`2 catch`4 * drop * 0 catch + - 					// Calculate the y component 
+mvdown`3 0 dup`5 catch`4 * drop * 0 catch + - mvdown`6 	// Calculate the z component
 ;
 

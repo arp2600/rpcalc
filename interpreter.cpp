@@ -138,6 +138,27 @@ public:
 	}
 };
 
+class CommandLoop : public ByteCode
+{
+private:
+	ByteCode *_command;
+	int _num_loops;
+public:
+	CommandLoop (ByteCode *command, int num_loops)
+	{
+		_command = command;
+		_num_loops = num_loops;
+	}
+
+	virtual int Perform ()
+	{
+		for (int i=1; i<_num_loops; i++)
+			_command->Perform();
+
+		return 0;
+	}
+};
+
 /*******************************     Public functions used by the parser ***********************************************************/
 // Handling operations
 extern "C" void interpret_operation (char *op_name, int perform)
@@ -183,4 +204,14 @@ extern "C" void interpret_end_of_func ()
 	code.push_back(eof);
 
 	eof->Perform();
+}
+
+// Loop command
+void interpret_loop(int number, int perform)
+{
+	CommandLoop *command = new CommandLoop(code.back(), number);
+	code.push_back(command);
+
+	if (perform)
+		command->Perform();
 }

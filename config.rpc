@@ -1,10 +1,11 @@
-:v3mag 2 ^ swap 2 ^ + swap 2 ^ + sqrt;
 :thousand 1000 *;
 :million 1000000 *;
 :billion 1000000000 *;
 :milli 1000 /;
 
-utils.rpc // Important language utilities
+// Move a number up or down the stack by n places
+:mvdown swap drop ;
+:mvup catch swap ;
 
 constants.rpc
 conversions.rpc
