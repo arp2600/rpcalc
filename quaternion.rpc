@@ -1,0 +1,22 @@
+:quatmag // Calculate the magnitude of a quaternion
+2 ^ swap 2 ^ + swap 2 ^ + swap 2 ^ + sqrt 0`4 drop`4
+;
+
+:quatdup // Duplicate a quaternion
+dup`4 drop`5 mvup dup`3 drop`3 mvdown drop mvup`2 dup`2 drop`2 mvdown`2 drop mvup`3 dup drop mvdown`3 catch`7
+;
+
+:quatnorm // Normalize a quaternion
+quatdup quatmag dup`3 
+mvdown`6 catch`6 mvdown`4 catch`4 mvdown`2 catch`2
+/ drop / drop / drop /
+catch`2 mvdown catch`3 mvdown`2 catch`4 mvdown`3 0`4 drop`4
+;
+
+:quatadd // Add two quaternions
+mvdown`3 catch mvdown`4 catch`5 mvdown`3 catch`4 mvdown`2
+catch`2 + drop + drop + drop +
+catch`2 mvdown catch`3 mvdown`2 catch`4 mvdown`3
+0`4 drop`4
+;
+
