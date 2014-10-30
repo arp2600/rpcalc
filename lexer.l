@@ -31,7 +31,7 @@ drop|catch							RETURN_OP
 "-"?[0-9]e"-"?[0-9]+				{ yylval.number = atof(yytext); return NUMBER; } /* Integers with exponent */
 "-"?[0-9]*"."[0-9]+e"-"?[0-9]+		{ yylval.number = atof(yytext); return NUMBER; } /* Floats with exponent */
 
-`[0-9]								{ yylval.integer = atof(yytext+1); return LOOP; }
+`[0-9]+								{ yylval.integer = atof(yytext+1); return LOOP; }
 
 "//".*$								; /* Single line comments */
 
