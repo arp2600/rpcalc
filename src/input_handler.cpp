@@ -161,9 +161,30 @@ void end_input_handler ()
 // Stop reading stdin and read file at path
 void read_file (const char *path)
 {
+	bool _is_loaded = false;
+
 	// Add the new file to the top of the file stack
+	// Attempt to open the file in the directory rpcalc was run
 	_file_stack.emplace(path, std::fstream::in);
 	if (!_file_stack.top().is_open())
+	{
 		_file_stack.pop();
+
+#ifdef LIB_DIR
+		// Attempt to open the file in the rpc_lib directory
+		std::string lib_path = LIB_DIR;
+		lib_path += path;
+		_file_stack.emplace(lib_path, std::fstream::in);
+		if (!_file_stack.top().is_open())
+			_file_stack.pop();
+		else
+			_is_loaded = true;
+#endif
+	}
+	else
+		_is_loaded = true;
+
+	if (!_is_loaded)
+		printf("\n\rCould not load file '%s'\n\r", path);
 }
 
