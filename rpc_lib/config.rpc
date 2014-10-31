@@ -13,8 +13,8 @@
 :fibinit 0 1 ;
 :fibnext dup`2 drop`2 swap dup drop swap catch`2 + 0 drop ;
 
-constants.rpc
-conversions.rpc
-vectors.rpc
-quaternion.rpc
+rpc_lib/constants.rpc
+rpc_lib/conversions.rpc
+rpc_lib/vectors.rpc
+rpc_lib/quaternion.rpc
 

@@ -81,7 +81,7 @@ int main (int argc, char **argv)
 {
 	init_input_handler();
 	print_line_start();
-	read_file("config.rpc");
+	read_file("rpc_lib/config.rpc");
 	yyparse();
 	end_input_handler();
 	print_newline();

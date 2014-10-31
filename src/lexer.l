@@ -22,7 +22,7 @@ rnd|sqrt|dup|swap					RETURN_OP
 drop|catch							RETURN_OP
 
  /* Identifiers */
-[a-zA-Z0-9_]+"."rpc					{ yylval.string = str_duplicate(yytext); return FILENAME; }
+([a-zA-Z0-9_]+"/")?[a-zA-Z0-9_]+"."rpc					{ yylval.string = str_duplicate(yytext); return FILENAME; }
 [a-zA-Z_][a-zA-Z0-9_]*				{ yylval.string = str_duplicate(yytext); return IDENTIFIER; }
 
  /* Numbers */
