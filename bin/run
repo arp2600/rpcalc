@@ -2,5 +2,5 @@
 # executing the program through a shell script
 # provides a way to reset stty even if the main program crashes
 
-./rpcalc
+./sod
 stty sane
