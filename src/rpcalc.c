@@ -59,6 +59,7 @@ void rpDiv ()
 // round the top number on the stack (required for factorial among others)
 void rpRound ()
 {
+	head[0] = round(head[0]);
 }
 
 // square root the top element of the stack
@@ -71,6 +72,16 @@ void rpPow ()
 {
 	stack_pop();
 	head[0] = pow(head[0], head[1]);
+}
+
+// get the factorial of the top element on the stack
+void rpFactorial ()
+{
+	int factorial = 1;
+	for (int i = 2; i <= head[0]; i++) {
+		factorial *= i;
+	}
+	head[0] = factorial;
 }
 
 // trig operations

@@ -15,7 +15,7 @@ char *str_duplicate(char *string);
 %%
 
  /* Operations */
-"+"|"-"|"*"|"/"|"%"|"^"				RETURN_OP
+"+"|"-"|"*"|"/"|"%"|"^"|"!"				RETURN_OP
 (sin|cos|tan)(h)?					RETURN_OP
 rnd|sqrt|dup|swap					RETURN_OP
 "dump"|"exit" 						RETURN_OP

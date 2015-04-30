@@ -40,6 +40,8 @@ public:
 			rpDiv();
 		else if (_op_name.compare("^") == 0)
 			rpPow();
+		else if (_op_name.compare("!") == 0)
+			rpFactorial();
 		else if (_op_name.compare("sin") == 0)
 			rpSin();
 		else if (_op_name.compare("cos") == 0)
@@ -68,6 +70,8 @@ public:
 			rpDrop();
 		else if (_op_name.compare("catch") == 0)
 			rpCatch();
+		else if (_op_name.compare("rnd") == 0)
+			rpRound();
 		else
 			std::cout << "Operation '" << _op_name << "' is undefined\n\r";
 	

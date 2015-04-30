@@ -9,6 +9,7 @@ void rpDiv ();	// divide the top two numbers on the stack
 void rpRound ();	// round the top number on the stack (required for factorial among others)
 void rpSqrt ();	// square root the top element of the stack
 void rpPow ();
+void rpFactorial ();
 // trig operations
 void rpSin ();
 void rpCos ();
